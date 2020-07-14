@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+			@import url("https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700,900");
+			body,body *{
+				padding: 0;
+				border: none;
+				user-select: none;
+				font-family: Montserrat;
+			}
+			h1{
+				position: absolute;
+				top: 50px;
+				left: 50%;
+				transform: translate(-50%,0);
+				font-family: Consolas;
+				font-size: 40px;
+			}
+			h1:after{
+				content: "h-MAC";
+				position: absolute;
+				bottom: -20px;
+				left: 50%;
+				transform: translate(-50%,0);
+				font-size: 18px;
+				white-space: nowrap;
+				font-family: Montserrat;
+				color: #121212;
+			}
+			.input{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				width: 300px;
+				height: 200px;
+				border: 1px solid #dddddd;
+				box-shadow: 0 0 10px 10px #dddddd;
+				border-radius: 10px;
+			}
+			.input>.i{
+				position: absolute;
+				top: 10px;
+				left: 50%;
+				width: 280px;
+				height: 30px;
+				transform: translate(-50%,0);
+				outline: none;
+				font-size: 17px;
+				border: 1px solid #dddddd;
+				border-radius: 10px;
+				color: #333;
+			}
+			.input>.i::selection{
+				background: #c5c5c5;
+			}
+			.input>.s{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				font-size: 20px;
+				white-space: nowrap;
+				transition: opacity 0.2s
+				opacity: 0;
+			}
+			.input>.s.v{
+				opacity: 1;
+			}
+			.input>.s>.a{
+				position: absolute;
+				bottom: -25px;
+				left: 50%;
+				transform: translate(-50%,0);
+				font-size: 15px;
+				white-space: nowrap;
+				color: #777;
+			}
+			.input>.t{
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				transform: translate(-50%,0);
+				white-space: nowrap;
+				font-size: 12px
+			}
+		</style>
+		<script type="text/javascript">
+			var a,b,c
+			document.addEventListener("DOMContentLoaded",function(){a=document;b=a.getElementsByClassName("i")[0];c=a.getElementsByClassName("s")[0];b.onkeyup=function(d){if (d.key=="Enter"){if(x(b.value)){c.innerHTML="Access granted<span class=\"a\"></span>";c.childNodes[1].innerHTML=`Code: FLAG{${b.value}}`;c.style.color="#00d812";c.classList.add("v")}else{c.innerText="Access denied";c.style.color="#f90b00";c.classList.add("v")}}};b.onkeydown=function(d){if(!(/^.$/.test(d.key))){d.preventDefault();d.stopPropagation();return false}}})
+			function hmac(d,k){
+				/* https://github.com/pH200/hmacsha1-js/blob/master/index.js */
+				function _f(t,b,c,d){if(t<20){return(b&c)|((~b)&d)}if(t<40){return b^c^d}if(t<60){return(b&c)|(b&d)|(c&d)}return b^c^d}
+				function _k(t){return(t<20)?1518500249:(t<40)?1859775393:(t<60)?-1894007588:-899497514}
+				function _s(x,y){var l=(x&0xFFFF)+(y&0xFFFF),m=(x>>16)+(y>>16)+(l>>16);return(m<<16)|(l&0xFFFF)}
+				function _r(n,c){return(n<<c)|(n>>>(32-c))}
+				function _c(x,l){x[l>>5]|=0x80<<(24-l%32);x[((l+64>>9)<<4)+15]=l;var w=[80],a=1732584193,b=-271733879,c=-1732584194,d=271733878,e=-1009589776;for(var i=0;i<x.length;i+=16){var o=a,p=b,q=c,r=d,s=e;for(var j=0;j<80;j++){if(j<16){w[j]=x[i+j]}else{w[j]=_r(w[j-3]^w[j-8]^w[j-14]^w[j-16],1)}var t=_s(_s(_r(a,5),_f(j,b,c,d)),_s(_s(e,w[j]),_k(j)));e=d;d=c;c=_r(b,30);b=a;a=t}a=_s(a,o);b=_s(b,p);c=_s(c,q);d=_s(d,r);e=_s(e,s)}return[a,b,c,d,e]}
+				function _b(s){var b=[],m=(1<<1024)-1;for(var i=0;i<s.length*1024;i+=1024){b[i>>5]|=(s.charCodeAt(i/8)&m)<<(32-1024-i%32)}return b}
+				function _h(k,d){var b=_b(k);if(b.length>16){b=_c(b,k.length*1024)}var p=[16],o=[16];for(var i=0;i<16;i++){p[i]=b[i]^0x36363636;o[i]=b[i]^0x5C5C5C5C}var h=_c(p.concat(_b(d)),512+d.length*1024);return _c(o.concat(h),512+160)}
+				function _n(b){var t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",s="";for(var i=0;i<b.length*4;i+=3){var r=(((b[i>>2]>>8*(3-i%4))&0xFF)<<16)|(((b[i+1>>2]>>8*(3-(i+1)%4))&0xFF)<<8)|((b[i+2>>2]>>8*(3-(i+2)%4))&0xFF);for(var j=0;j<4;j++){if(i*8+j*6>b.length*32){s+="="}else{s+=t.charAt((r>>6*(3-j))&0x3F)}}}return s}
+				return _n(_h(k,d))
+			}
+			function x(seq){
+				String.prototype.count=function(s){var i=0;for (var k of this.valueOf()){if (k==s){i++}};return i}
+				return (/^[\/\-\\\â‚¬,ABCDEHKLMNPSYXacdehkmnopzu]+$/.test(seq)&&hmac((seq.length**50).toString(),"l3n")=="+M+xxrBZ69p692DAOXoYVFDN+kU="&&hmac((seq[3].charCodeAt(0)**50).toString(),"$pL!T")=="0tKFEgd9PqCl1QgMpuZZzg+Gm7s="&&seq.count("-")==1&&hmac(...seq.split(seq[seq.lastIndexOf("-")]))=="8Nk7V56/Z8aL6gSensBgmccDDxo="&&hmac(seq,"hmac")=="lOHGvZHocUlr8tWcwAvQmuJ0SMk=")
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Level 0x5</h1>
+		<div class="input">
+			<input class="i" type="text" placeholder="Password" spellcheck="false" maxlength="50" value="hM/-\â‚¬">
+			<span class="s"></span>
+			<span class="t"><b>NOTE:</b> To reset, press CTRL+R</span>
+		</div>
+	</body>
+</html>

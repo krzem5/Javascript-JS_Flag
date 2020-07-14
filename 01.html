@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+			@import url("https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700,900");
+			body,body *{
+				padding: 0;
+				border: none;
+				user-select: none;
+				font-family: Montserrat;
+			}
+			h1{
+				position: absolute;
+				top: 50px;
+				left: 50%;
+				transform: translate(-50%,0);
+				font-family: Consolas;
+				font-size: 40px;
+			}
+			h1:after{
+				content: "Developer Tools & a simple check";
+				position: absolute;
+				bottom: -20px;
+				left: 50%;
+				transform: translate(-50%,0);
+				font-size: 18px;
+				white-space: nowrap;
+				font-family: Montserrat;
+				color: #121212;
+			}
+			.input{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				width: 300px;
+				height: 200px;
+				border: 1px solid #dddddd;
+				box-shadow: 0 0 10px 10px #dddddd;
+				border-radius: 10px;
+			}
+			.input>.i{
+				position: absolute;
+				top: 10px;
+				left: 50%;
+				width: 280px;
+				height: 30px;
+				transform: translate(-50%,0);
+				outline: none;
+				font-size: 17px;
+				border: 1px solid #dddddd;
+				border-radius: 10px;
+				color: #333;
+			}
+			.input>.i::selection{
+				background: #c5c5c5;
+			}
+			.input>.s{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				font-size: 20px;
+				white-space: nowrap;
+				transition: opacity 0.2s
+				opacity: 0;
+			}
+			.input>.s.v{
+				opacity: 1;
+			}
+			.input>.s>.a{
+				position: absolute;
+				bottom: -25px;
+				left: 50%;
+				transform: translate(-50%,0);
+				font-size: 15px;
+				white-space: nowrap;
+				color: #777;
+			}
+			.input>.t{
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				transform: translate(-50%,0);
+				white-space: nowrap;
+				font-size: 12px
+			}
+		</style>
+		<script type="text/javascript">
+			var a,b,c
+			document.addEventListener("DOMContentLoaded",function(){a=document;b=a.getElementsByClassName("i")[0];c=a.getElementsByClassName("s")[0];b.onkeyup=function(d){if (d.key=="Enter"){if(x(b.value)){c.innerHTML="Access granted<span class=\"a\"></span>";c.childNodes[1].innerHTML=`Code: FLAG{${b.value}}`;c.style.color="#00d812";c.classList.add("v")}else{c.innerText="Access denied";c.style.color="#f90b00";c.classList.add("v")}}};b.onkeydown=function(d){if(!(/^.$/.test(d.key))){d.preventDefault();d.stopPropagation();return false}}})
+			function x(seq){
+				return seq=="pa$$wd"
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Level 0x1</h1>
+		<div class="input">
+			<input class="i" type="text" placeholder="Password" spellcheck="false" maxlength="50">
+			<span class="s"></span>
+			<span class="t"><b>NOTE:</b> To reset, press CTRL+R</span>
+		</div>
+	</body>
+</html>
