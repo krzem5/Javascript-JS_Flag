@@ -1,3 +1,5 @@
 build
-f.py
-fl.txt
+src/f.html
+*.py
+*.txt
+!LICENSE.txt
