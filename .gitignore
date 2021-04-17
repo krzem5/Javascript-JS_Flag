@@ -1,5 +1,5 @@
 build
-src/f.html
+src/t.html
 *.py
 *.txt
 !LICENSE.txt
