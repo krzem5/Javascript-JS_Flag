@@ -1,3 +1,6 @@
+path_classifiers:
+  generated:
+    - exclude: "src/*.js"
 queries:
   - include: "*"
   - exclude: cpp/poorly-documented-function

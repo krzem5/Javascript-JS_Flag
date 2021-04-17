@@ -1,1 +1,2 @@
-"C:/Program Files/Google/Chrome/Application/chrome.exe" http://localhost:8020/projects/Javascript-JS-Flag/
+@echo off
+cls
